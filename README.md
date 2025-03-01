@@ -24,10 +24,7 @@ Deno compiled executables.
 **Usage:**
 
 ```typescript
-import { setupLocalStorage } from "jsr:@sigma/deno-compile-extra/localStoragePolyfill";
-
-// Initialize the polyfill (does nothing if not in a compiled executable)
-await setupLocalStorage();
+import "jsr:@sigma/deno-compile-extra/localStoragePolyfill";
 
 // Use localStorage normally
 localStorage.setItem("user", JSON.stringify({ name: "Jane", id: 123 }));
@@ -48,10 +45,7 @@ compiled executables.
 **Usage:**
 
 ```typescript
-import { patchFetch } from "jsr:@sigma/deno-compile-extra/fetch-patch";
-
-// Apply the patch before using fetch with file:// URLs
-patchFetch();
+import "jsr:@sigma/deno-compile-extra/fetch-patch";
 
 // Now file:// URLs will work in both regular and compiled Deno
 const content = await fetch(new URL("./data.txt", import.meta.url))

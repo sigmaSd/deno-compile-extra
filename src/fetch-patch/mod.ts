@@ -26,10 +26,7 @@ import { isStandaloneDenoExe } from "../utils.ts";
  *
  * @example
  * ```ts
- * import { patchFetch } from "./mod.ts";
- *
- * // Apply the patch before using fetch with file:// URLs
- * patchFetch();
+ * import "jsr:@sigma/deno-compile-extra/fetchPatch";
  *
  * // Now file:// URLs will work in both regular and compiled Deno
  * const content = await fetch(new URL("./data.txt", import.meta.url))
@@ -71,3 +68,6 @@ export function patchFetch() {
     return originalFetch(input, init);
   };
 }
+
+// run the patch
+patchFetch();

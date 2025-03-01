@@ -12,9 +12,7 @@
  * ## Usage
  *
  * ```ts
- * import { setupLocalStorage } from "jsr:@sigma/deno-compile-extra/localStoragePolyfill";
- *
- * await setupLocalStorage();
+ * import "jsr:@sigma/deno-compile-extra/localStoragePolyfill";
  *
  * // Now you can use localStorage as usual
  * localStorage.setItem("key", "value");
@@ -150,3 +148,6 @@ export async function setupLocalStorage() {
     enumerable: true,
   });
 }
+
+// setup the polyfill
+await setupLocalStorage();

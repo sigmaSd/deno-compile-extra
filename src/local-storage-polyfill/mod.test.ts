@@ -23,9 +23,7 @@ async function compileDenoScript(scriptPath: string): Promise<string> {
 Deno.test("localStorage polyfill in compiled executable", async () => {
   // --- Step 1: Create a temporary test script ---
   const testScriptContent = `
-    import { setupLocalStorage } from "./mod.ts";
-
-    await setupLocalStorage();
+    import "./mod.ts";
 
     if (localStorage.getItem("testKey")) {
       if (localStorage.getItem("testKey") !== "testValue") {

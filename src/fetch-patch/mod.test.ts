@@ -34,10 +34,7 @@ async function compileDenoScript(
 Deno.test("patch fetch works correctly", async () => {
   // --- Step 1: Create a temporary test script ---
   const testScriptContent = `
-    import { patchFetch } from "./mod.ts";
-
-    // Apply the patch before using fetch with file:// URLs
-    patchFetch();
+    import "./mod.ts";
 
     // Now file:// URLs will work in both regular and compiled Deno
     const content = await fetch(new URL("./data.txt", import.meta.url))
