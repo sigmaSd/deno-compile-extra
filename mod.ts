@@ -1,4 +1,4 @@
-// import assert from "node:assert";
+import assert from "node:assert";
 import { cacheDir, isStandaloneDenoExe } from "./utils.ts";
 import { join as joinPath } from "jsr:@std/path@1.0.8";
 import { ensureDir } from "jsr:@std/fs@1.0.13";
@@ -9,7 +9,7 @@ class LocalStorage {
 
   async setup() {
     const cacheDirPath = cacheDir();
-    // assert(cacheDirPath);
+    assert(cacheDirPath);
     const localStoragePath = joinPath(cacheDirPath, "deno-localStorage");
     await ensureDir(localStoragePath);
 
