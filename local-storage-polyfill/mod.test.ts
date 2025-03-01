@@ -7,7 +7,7 @@ async function compileDenoScript(scriptPath: string): Promise<string> {
   const exePath = path.join(tempDir, "compiled_test_app");
 
   const compileProcess = new Deno.Command(Deno.execPath(), {
-    args: ["compile", "-A", "--no-check", "-o", exePath, scriptPath],
+    args: ["compile", "-A", "-o", exePath, scriptPath],
     stdin: "null",
     stdout: "null",
     stderr: "inherit", // Show compilation errors
