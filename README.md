@@ -45,7 +45,7 @@ compiled executables.
 **Usage:**
 
 ```typescript
-import "jsr:@sigma/deno-compile-extra/fetch-patch";
+import "jsr:@sigma/deno-compile-extra/fetchPatch";
 
 // Now file:// URLs will work in both regular and compiled Deno
 const content = await fetch(new URL("./data.txt", import.meta.url))
