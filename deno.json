@@ -4,6 +4,7 @@
   "license": "MIT",
   "exports": {
     "./localStoragePolyfill": "./src/local-storage-polyfill/mod.ts",
-    "./fetchPatch": "./src/fetch-patch/mod.ts"
+    "./fetchPatch": "./src/fetch-patch/mod.ts",
+    "./isStandalone": "./src/is-standalone/mod.ts"
   }
 }

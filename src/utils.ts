@@ -30,10 +30,27 @@ export function cacheDir(): string | null {
   return null;
 }
 
+/**
+ * Determines whether the current Deno process is running as a standalone executable.
+ *
+ * This function uses heuristics to try to guess if the code is running in a compiled
+ * standalone executable rather than the standard Deno runtime:
+ * 1. Checks if the main module path includes "deno-compile"
+ * 2. Tests if accessing localStorage results in an error (which happens in compiled executables)
+ *
+ * @example
+ *
+ * if (isStandaloneDenoExe()) {
+ *   console.log("Running as a standalone executable");
+ * } else {
+ *   console.log("Running in normal Deno runtime");
+ * }
+ */
 export function isStandaloneDenoExe(): boolean {
   // heuristics
   return (
-    import.meta.url.includes("deno-compile") &&
+    Deno.mainModule.includes("deno-compile") &&
+    // accessing localStorage in the compiled binary result in an error
     try_(() => localStorage.length).isErr()
   );
 }
