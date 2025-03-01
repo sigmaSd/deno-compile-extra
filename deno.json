@@ -3,6 +3,7 @@
   "version": "0.3.0",
   "license": "MIT",
   "exports": {
-    "./localStoragePolyfill": "./local-storage-polyfill/mod.ts"
+    "./localStoragePolyfill": "./local-storage-polyfill/mod.ts",
+    "./fetchPatch": "./fetch-patch/mod.ts"
   }
 }

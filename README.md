@@ -37,3 +37,26 @@ console.log(`Hello, ${user.name}!`);
 
 Issue:
 [https://github.com/denoland/deno/issues/10693](https://github.com/denoland/deno/issues/10693)
+
+### Fetch Patch for file:// URLs
+
+A patch for the global fetch function to properly support file:// URLs in Deno
+compiled executables.
+
+- Enables reading embedded files using the standard fetch API
+
+**Usage:**
+
+```typescript
+import { patchFetch } from "jsr:@sigma/deno-compile-extra/fetch-patch";
+
+// Apply the patch before using fetch with file:// URLs
+patchFetch();
+
+// Now file:// URLs will work in both regular and compiled Deno
+const content = await fetch(new URL("./data.txt", import.meta.url))
+  .then((res) => res.text());
+```
+
+Issue:
+[https://github.com/denoland/deno/issues/28129](https://github.com/denoland/deno/issues/28129)

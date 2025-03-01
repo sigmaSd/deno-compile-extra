@@ -2,12 +2,23 @@ import { assertEquals } from "jsr:@std/assert@1.0.11";
 import * as path from "jsr:@std/path@0.221.0";
 
 // Helper function to compile a Deno script and return the path to the executable
-async function compileDenoScript(scriptPath: string): Promise<string> {
-  const tempDir = await Deno.makeTempDir();
+async function compileDenoScript(
+  { scriptPath, includes, tempDir }: {
+    scriptPath: string;
+    includes?: string[];
+    tempDir: string;
+  },
+): Promise<string> {
   const exePath = path.join(tempDir, "compiled_test_app");
 
+  let args = ["compile", "-A", "-o", exePath];
+  if (includes) {
+    args = [...args, ...includes.map((file) => `--include=${file}`)];
+  }
+  args = [...args, scriptPath];
+
   const compileProcess = new Deno.Command(Deno.execPath(), {
-    args: ["compile", "-A", "-o", exePath, scriptPath],
+    args,
     stdin: "null",
     stdout: "null",
     stderr: "inherit", // Show compilation errors
@@ -20,50 +31,45 @@ async function compileDenoScript(scriptPath: string): Promise<string> {
   return exePath;
 }
 
-Deno.test("localStorage polyfill in compiled executable", async () => {
+Deno.test("patch fetch works correctly", async () => {
   // --- Step 1: Create a temporary test script ---
   const testScriptContent = `
-    import { setupLocalStorage } from "./mod.ts";
+    import { patchFetch } from "./mod.ts";
 
-    await setupLocalStorage();
+    // Apply the patch before using fetch with file:// URLs
+    patchFetch();
 
-    if (localStorage.getItem("testKey")) {
-      if (localStorage.getItem("testKey") !== "testValue") {
-        throw new Error("wrong value")
-      }
-      localStorage.removeItem("testKey");
-      if (localStorage.getItem("testKey")) {
-        throw new Error("not removed")
-      }
-    } else {
-      localStorage.setItem("testKey", "testValue");
-      if (localStorage.length !== 1) {
-        throw new Error("wrong len:" + localStorage.length.toString())
-      }
-    }
-    if (Deno.args[0] === "clear") {
-      localStorage.clear()
-      if (localStorage.length !== 0) {
-          throw new Error("not cleared")
-      }
+    // Now file:// URLs will work in both regular and compiled Deno
+    const content = await fetch(new URL("./data.txt", import.meta.url))
+      .then(res => res.text());
+
+    if (content !== "Hello, World!") {
+      throw new Error("Unexpected content");
     }
   `;
 
   const tempDir = await Deno.makeTempDir();
   const testScriptPath = path.join(tempDir, "test_app.ts");
+  const dataPath = path.join(tempDir, "data.txt");
   // https://github.com/denoland/deno/issues/28353
   const modFilePath = path.join(tempDir, "mod.ts");
   // copy the content of mod.ts to tempDir
-  const modFileContent = await Deno.readTextFile("./mod.ts");
+  const modFileContent = await Deno.readTextFile("./mod.ts")
+    .then((file) => file.replaceAll("../utils.ts", "./utils.ts"));
   await Deno.writeTextFile(modFilePath, modFileContent);
   //copy the utils
   const utilsFilePath = path.join(tempDir, "utils.ts");
-  const utilsFileContent = await Deno.readTextFile("./utils.ts");
+  const utilsFileContent = await Deno.readTextFile("../utils.ts");
   await Deno.writeTextFile(utilsFilePath, utilsFileContent);
   await Deno.writeTextFile(testScriptPath, testScriptContent);
+  await Deno.writeTextFile(dataPath, "Hello, World!");
 
   // --- Step 2: Compile the test script ---
-  const executablePath = await compileDenoScript(testScriptPath);
+  const executablePath = await compileDenoScript({
+    scriptPath: testScriptPath,
+    includes: [dataPath],
+    tempDir,
+  });
   {
     // --- Step 3: Run the compiled executable ---
     const runProcess = new Deno.Command(executablePath, {
