@@ -74,3 +74,6 @@ if (isStandaloneDenoExe()) {
   console.log("Running with the standard Deno runtime");
 }
 ```
+
+Issue:
+[https://github.com/denoland/deno/issues/15996](https://github.com/denoland/deno/issues/15996)
