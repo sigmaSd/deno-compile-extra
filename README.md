@@ -21,5 +21,19 @@ Deno compiled executables.
 - Uses system cache directory to store data
 - Isolates storage between different executables
 
+**Usage:**
+
+```typescript
+import { setupLocalStorage } from "jsr:@sigma/deno-compile-extra/localStoragePolyfill";
+
+// Initialize the polyfill (does nothing if not in a compiled executable)
+await setupLocalStorage();
+
+// Use localStorage normally
+localStorage.setItem("user", JSON.stringify({ name: "Jane", id: 123 }));
+const user = JSON.parse(localStorage.getItem("user") || "{}");
+console.log(`Hello, ${user.name}!`);
+```
+
 Issue:
 [https://github.com/denoland/deno/issues/10693](https://github.com/denoland/deno/issues/10693)
