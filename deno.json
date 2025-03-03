@@ -1,6 +1,6 @@
 {
   "name": "@sigma/deno-compile-extra",
-  "version": "0.8.0",
+  "version": "0.9.0",
   "license": "MIT",
   "exports": {
     "./localStoragePolyfill": "./src/local-storage-polyfill/mod.ts",
