@@ -49,7 +49,7 @@ export function cacheDir(): string | null {
 export function isStandaloneDenoExe(): boolean {
   // heuristics
   return (
-    Deno.mainModule.includes("deno-compile") &&
+    import.meta.url.includes("deno-compile") &&
     // accessing localStorage in the compiled binary result in an error
     try_(() => localStorage.length).isErr()
   );
