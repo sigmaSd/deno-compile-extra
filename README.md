@@ -54,26 +54,3 @@ const content = await fetch(new URL("./data.txt", import.meta.url))
 
 Issue:
 [https://github.com/denoland/deno/issues/28129](https://github.com/denoland/deno/issues/28129)
-
-### Is Standalone Detection
-
-A utility function to detect if the current Deno process is running as a
-standalone executable.
-
-- Helps with conditional logic based on execution context
-- Uses heuristics to determine if running in a compiled binary
-
-**Usage:**
-
-```typescript
-import { isStandaloneDenoExe } from "jsr:@sigma/deno-compile-extra/isStandalone";
-
-if (isStandaloneDenoExe()) {
-  console.log("Running as a compiled executable");
-} else {
-  console.log("Running with the standard Deno runtime");
-}
-```
-
-Issue:
-[https://github.com/denoland/deno/issues/15996](https://github.com/denoland/deno/issues/15996)

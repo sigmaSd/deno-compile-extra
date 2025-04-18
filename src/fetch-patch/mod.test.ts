@@ -51,12 +51,16 @@ Deno.test("patch fetch works correctly", async () => {
   // https://github.com/denoland/deno/issues/28353
   const modFilePath = path.join(tempDir, "mod.ts");
   // copy the content of mod.ts to tempDir
-  const modFileContent = await Deno.readTextFile("./mod.ts")
+  const modFileContent = await Deno.readTextFile(
+    new URL("./mod.ts", import.meta.url),
+  )
     .then((file) => file.replaceAll("../utils.ts", "./utils.ts"));
   await Deno.writeTextFile(modFilePath, modFileContent);
   //copy the utils
   const utilsFilePath = path.join(tempDir, "utils.ts");
-  const utilsFileContent = await Deno.readTextFile("../utils.ts");
+  const utilsFileContent = await Deno.readTextFile(
+    new URL("../utils.ts", import.meta.url),
+  );
   await Deno.writeTextFile(utilsFilePath, utilsFileContent);
   await Deno.writeTextFile(testScriptPath, testScriptContent);
   await Deno.writeTextFile(dataPath, "Hello, World!");

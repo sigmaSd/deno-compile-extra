@@ -22,7 +22,7 @@
  * @module
  */
 import assert from "node:assert";
-import { cacheDir, isStandaloneDenoExe } from "../utils.ts";
+import { cacheDir } from "../utils.ts";
 import { join as joinPath } from "jsr:@std/path@1.0.8";
 import { ensureDir } from "jsr:@std/fs@1.0.13";
 
@@ -121,7 +121,7 @@ class LocalStorage {
  * ```
  */
 export async function setupLocalStorage() {
-  if (!isStandaloneDenoExe()) {
+  if (!Deno.build.standalone) {
     return;
   }
 
