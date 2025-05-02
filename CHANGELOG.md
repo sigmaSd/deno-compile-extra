@@ -1,6 +1,10 @@
 ## 0.11.0
-- The `isStandalone` module has been removed. (use `Deno.build.standalone` instead)
-- Refactor `fetchPatch` and `localStoragePolyfill` to use `Deno.build.standalone` instead of `isStandaloneDenoExe`. (requires Deno 2.13.0)
+
+- The `isStandalone` module has been removed. (use `Deno.build.standalone`
+  instead)
+- Refactor `fetchPatch` and `localStoragePolyfill` to use
+  `Deno.build.standalone` instead of `isStandaloneDenoExe`. (requires Deno
+  2.13.0)
 
 ## 0.10.0
 
