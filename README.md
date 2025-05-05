@@ -54,3 +54,31 @@ const content = await fetch(new URL("./data.txt", import.meta.url))
 
 Issue:
 [https://github.com/denoland/deno/issues/28129](https://github.com/denoland/deno/issues/28129)
+
+### Caches Polyfill
+
+A file-based implementation of the Cache API for Deno compiled executables.
+
+- Persists cached responses between runs of the same compiled executable
+- Isolates cache storage between different executables
+
+**Usage:**
+
+```typescript
+import "jsr:@sigma/deno-compile-extra/cachesPolyfill";
+
+// Use the Cache API normally
+const cache = await caches.open("my-cache");
+
+const req = new Request("https://example.com");
+const res = new Response("Hello from cache!");
+
+await cache.put(req, res);
+
+const matchedResponse = await cache.match(req);
+if (matchedResponse) {
+  console.log(await matchedResponse.text()); // "Hello from cache!"
+}
+```
+
+Issue:
