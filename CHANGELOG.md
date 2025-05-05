@@ -1,3 +1,7 @@
+## 0.12.0
+
+-  Add Caches API polyfill for compiled executables
+
 ## 0.11.0
 
 - The `isStandalone` module has been removed. (use `Deno.build.standalone`
