@@ -1,4 +1,7 @@
 // https://github.com/justjavac/deno_dirs/blob/main/cache_dir/mod.ts
+/**
+ * Returns the cache directory of the current platform.
+ */
 export function cacheDir(): string | null {
   switch (Deno.build.os) {
     case "linux": {
@@ -55,6 +58,13 @@ export function isStandaloneDenoExe(): boolean {
   );
 }
 
+/**
+ * Executes a function and returns either the successful result or an error.
+ *
+ * @template T The return type of the function.
+ * @param {() => T} fn The function to execute.
+ * @returns {{ isErr: () => boolean, ok?: T, err?: any }} An object containing either the result or the error.
+ */
 function try_<T>(fn: () => T) {
   try {
     const ok = fn();
