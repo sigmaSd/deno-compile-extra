@@ -405,7 +405,7 @@ class CacheStorageImpl implements CacheStorage {
  * of the entry point module URL.
  *
  * @example
- * \`\`\`ts
+ * ```ts
  * import { setupCachesPolyfill } from "./mod.ts"; // Or the JSR equivalent
  *
  * await setupCachesPolyfill();
@@ -413,7 +413,7 @@ class CacheStorageImpl implements CacheStorage {
  * // Now you can use caches API
  * const cache = await caches.open("my-cache");
  * await cache.put(new Request("/data"), new Response("payload"));
- * \`\`\`
+ * ```
  */
 export async function setupCachesPolyfill(): Promise<void> {
   // Only apply polyfill in standalone executables
