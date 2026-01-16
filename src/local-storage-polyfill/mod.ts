@@ -23,8 +23,8 @@
  */
 import assert from "node:assert";
 import { cacheDir } from "../utils.ts";
-import { join as joinPath } from "jsr:@std/path@1.0.8";
-import { ensureDir } from "jsr:@std/fs@1.0.13";
+import { join as joinPath } from "@std/path";
+import { ensureDir } from "@std/fs";
 
 class LocalStorage {
   storageData: Record<string, string> = {};

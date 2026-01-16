@@ -1,6 +1,6 @@
-import { assertEquals } from "jsr:@std/assert@1.0.11";
-import * as path from "jsr:@std/path@0.221.0";
-import { exists } from "jsr:@std/fs@1.0.13";
+import { assertEquals } from "@std/assert";
+import * as path from "@std/path";
+import { exists } from "@std/fs";
 
 // Helper function to compile a Deno script and return the path to the executable
 async function compileDenoScript(scriptPath: string): Promise<string> {

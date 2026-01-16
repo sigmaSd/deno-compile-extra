@@ -34,8 +34,8 @@
  * @module
  */
 
-import * as path from "jsr:@std/path@1.0.8";
-import { ensureDir, exists } from "jsr:@std/fs@1.0.13";
+import * as path from "@std/path";
+import { ensureDir, exists } from "@std/fs";
 import { cacheDir } from "../utils.ts";
 import assert from "node:assert";
 

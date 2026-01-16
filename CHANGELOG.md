@@ -1,3 +1,7 @@
+## 0.13.0
+
+- Remove fetch patch, fixed in deno 2.6.5
+
 ## 0.12.0
 
 - Add Caches API polyfill for compiled executables
